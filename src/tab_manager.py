@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QMenu, QAction
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 from .code_editor import CodeEditor
 from .syntax_highlighter import PythonHighlighter
 
@@ -25,7 +25,7 @@ class TabManager(QTabWidget):
     
     def setup_context_menu(self):
         """Configura menu de contexto para as abas"""
-        self.setContextMenuPolicy(self.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.show_context_menu)
     
     def show_context_menu(self, position):

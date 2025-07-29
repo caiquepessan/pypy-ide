@@ -1,5 +1,6 @@
 import sys
 import io
+import builtins
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLineEdit, 
                              QPushButton, QTextEdit, QLabel, QMessageBox)
 from PyQt5.QtCore import QTimer, pyqtSignal
@@ -87,7 +88,7 @@ class InputRedirector:
     
     def __init__(self, input_manager):
         self.input_manager = input_manager
-        self.original_input = input
+        self.original_input = builtins.input
     
     def __call__(self, prompt=""):
         return self.input_manager.get_input(prompt)
@@ -127,15 +128,15 @@ class CodeExecutor:
             # Salva funções originais
             original_stdout = sys.stdout
             original_stdin = sys.stdin
-            original_input = __builtins__.input
+            original_input = builtins.input
             
             # Redireciona input/output
             sys.stdout = self.output_redirector
-            __builtins__.input = self.input_redirector
+            builtins.input = self.input_redirector
             
             # Executa o código em um namespace limpo
             namespace = {
-                '__builtins__': __builtins__,
+                '__builtins__': builtins,
                 '__name__': '__main__',
                 '__file__': None
             }
@@ -143,7 +144,7 @@ class CodeExecutor:
             
             # Restaura funções originais
             sys.stdout = original_stdout
-            __builtins__.input = original_input
+            builtins.input = original_input
             
         except Exception as e:
             self.output_callback(f"Erro: {str(e)}\n")

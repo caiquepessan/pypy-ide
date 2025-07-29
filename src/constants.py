@@ -20,7 +20,8 @@ DRACULA_COLORS = {
     'error': '#ff5555',
     'number': '#bd93f9',
     'operator': '#ff79c6',
-    'breakpoint': '#ff5555'
+    'breakpoint': '#ff5555',
+    'selection': '#44475a'
 }
 
 # Configurações do editor

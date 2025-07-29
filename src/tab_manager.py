@@ -232,6 +232,13 @@ class TabManager(QTabWidget):
                 return index
         return -1
     
+    def get_current_tab_info(self):
+        """Retorna informações da aba atual"""
+        current_index = self.currentIndex()
+        if current_index >= 0:
+            return self.tab_info.get(current_index, {})
+        return {}
+    
     def set_tab_modified(self, index, modified=True):
         """Marca aba como modificada"""
         if index in self.tab_info:

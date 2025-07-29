@@ -2,12 +2,12 @@ import sys
 import subprocess
 import io
 import contextlib
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QPlainTextEdit, QAction, 
-                             QFileDialog, QMessageBox, QToolBar, QVBoxLayout, 
-                             QWidget, QSplitter, QShortcut, QMenu, QMenuBar,
-                             QStatusBar, QProgressBar, QLabel, QSize)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QPlainTextEdit, QAction,
+                                    QFileDialog, QMessageBox, QToolBar, QVBoxLayout,
+                                    QWidget, QSplitter, QShortcut, QMenu, QMenuBar,
+                                    QStatusBar, QProgressBar, QLabel)
+from PyQt5.QtCore import Qt, QTimer, QSize
 from PyQt5.QtGui import QIcon, QKeySequence
-from PyQt5.QtCore import Qt, QTimer
 from .constants import IDE_TITLE, DRACULA_COLORS
 from .code_editor import CodeEditor
 from .syntax_highlighter import PythonHighlighter
@@ -274,7 +274,7 @@ class IDEMainWindow(QMainWindow):
                     self._setup_autocomplete_for_tab(index)
                 
                 self.setWindowTitle(f"{IDE_TITLE} - {filename}")
-                self.status_label.setText(f"Arquivo aberto: {filename}")
+                self.file_info_label.setText(f"Arquivo aberto: {filename}")
                 
             except Exception as e:
                 QMessageBox.critical(self, "Erro", f"Erro ao abrir arquivo: {e}")
@@ -299,7 +299,7 @@ class IDEMainWindow(QMainWindow):
                 
                 self.tab_manager.set_tab_modified(current_index, False)
                 QMessageBox.information(self, "Salvo", "Arquivo salvo com sucesso!")
-                self.status_label.setText(f"Arquivo salvo: {filename}")
+                self.file_info_label.setText(f"Arquivo salvo: {filename}")
                 
             except Exception as e:
                 QMessageBox.critical(self, "Erro", f"Erro ao salvar arquivo: {e}")
@@ -331,7 +331,7 @@ class IDEMainWindow(QMainWindow):
                     self.tab_manager.setTabText(current_index, tab_name)
                     
                     self.setWindowTitle(f"{IDE_TITLE} - {filename}")
-                    self.status_label.setText(f"Arquivo salvo como: {filename}")
+                    self.file_info_label.setText(f"Arquivo salvo como: {filename}")
                     
             except Exception as e:
                 QMessageBox.critical(self, "Erro", f"Erro ao salvar arquivo: {e}")
@@ -483,11 +483,11 @@ class IDEMainWindow(QMainWindow):
     
     def on_tab_closed(self, index):
         """Chamado quando uma aba é fechada"""
-        self.status_label.setText(f"Aba {index} fechada")
+        self.file_info_label.setText(f"Aba {index} fechada")
     
     def on_tab_saved(self, index, content):
         """Chamado quando uma aba é salva"""
-        self.status_label.setText(f"Aba {index} salva")
+        self.file_info_label.setText(f"Aba {index} salva")
         self.tab_manager.set_tab_modified(index, False)
     
     def open_file_from_explorer(self, file_path):
@@ -506,7 +506,7 @@ class IDEMainWindow(QMainWindow):
                 self._setup_autocomplete_for_tab(index)
             
             self.setWindowTitle(f"{IDE_TITLE} - {file_path}")
-            self.status_label.setText(f"Arquivo aberto: {file_path}")
+            self.file_info_label.setText(f"Arquivo aberto: {file_path}")
             
         except Exception as e:
             QMessageBox.critical(self, "Erro", f"Erro ao abrir arquivo: {e}")
@@ -515,10 +515,10 @@ class IDEMainWindow(QMainWindow):
         """Mostra/oculta o explorador de arquivos"""
         if self.file_explorer.isVisible():
             self.file_explorer.hide()
-            self.status_label.setText("Explorador de arquivos oculto")
+            self.file_info_label.setText("Explorador oculto")
         else:
             self.file_explorer.show()
-            self.status_label.setText("Explorador de arquivos visível")
+            self.file_info_label.setText("Explorador visível")
     
     def _populate_themes_menu(self, menu):
         """Popula o menu de temas"""
@@ -534,7 +534,7 @@ class IDEMainWindow(QMainWindow):
         """Muda o tema da aplicação"""
         self.theme_manager.set_theme(theme_name)
         self.theme_manager.apply_theme_to_widget(self)
-        self.status_label.setText(f"Tema alterado para: {self.theme_manager.get_theme(theme_name)['name']}")
+        self.file_info_label.setText(f"Tema: {self.theme_manager.get_theme(theme_name)['name']}")
     
     def show_theme_selector(self):
         """Mostra seletor de temas"""

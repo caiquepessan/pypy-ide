@@ -21,40 +21,72 @@ class FileExplorer(QWidget):
     def setup_ui(self):
         """Configura a interface do explorador"""
         layout = QVBoxLayout()
-        
+        layout.setContentsMargins(8, 8, 8, 8)
+        layout.setSpacing(4)
+
         # Barra de ferramentas
         toolbar = QHBoxLayout()
-        
+        toolbar.setSpacing(4)
+
         # Botão para voltar
         self.back_button = QPushButton("←")
         self.back_button.setToolTip("Voltar")
+        self.back_button.setMaximumWidth(32)
         self.back_button.clicked.connect(self.go_back)
         toolbar.addWidget(self.back_button)
-        
+
         # Campo de caminho
         self.path_edit = QLineEdit()
         self.path_edit.setReadOnly(True)
         self.path_edit.setPlaceholderText("Caminho atual...")
+        self.path_edit.setStyleSheet("""
+            QLineEdit {
+                border: 1px solid #3e3e3e;
+                border-radius: 4px;
+                padding: 4px 8px;
+                background-color: #2d2d30;
+                color: #d4d4d4;
+            }
+        """)
         toolbar.addWidget(self.path_edit)
-        
+
         # Botão para navegar
         self.browse_button = QPushButton("📁")
         self.browse_button.setToolTip("Navegar para pasta")
+        self.browse_button.setMaximumWidth(32)
         self.browse_button.clicked.connect(self.browse_directory)
         toolbar.addWidget(self.browse_button)
-        
+
         layout.addLayout(toolbar)
-        
+
         # Árvore de arquivos
         self.tree = QTreeWidget()
-        self.tree.setHeaderLabel("Arquivos")
-        self.tree.setFont(QFont("Consolas", 9))
+        self.tree.setHeaderLabel("📁 Arquivos")
+        self.tree.setFont(QFont("Segoe UI", 9))
         self.tree.itemDoubleClicked.connect(self.on_item_double_clicked)
         self.tree.setContextMenuPolicy(Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.show_context_menu)
-        
+        self.tree.setStyleSheet("""
+            QTreeWidget {
+                border: none;
+                outline: none;
+                background-color: #1e1e1e;
+                color: #d4d4d4;
+            }
+            QTreeWidget::item {
+                padding: 4px 8px;
+                border-radius: 2px;
+            }
+            QTreeWidget::item:selected {
+                background-color: #264f78;
+            }
+            QTreeWidget::item:hover {
+                background-color: #2d2d30;
+            }
+        """)
+
         layout.addWidget(self.tree)
-        
+
         self.setLayout(layout)
         self.setMaximumWidth(300)
     

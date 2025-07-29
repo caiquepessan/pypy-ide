@@ -5,7 +5,7 @@ import contextlib
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QPlainTextEdit, QAction, 
                              QFileDialog, QMessageBox, QToolBar, QVBoxLayout, 
                              QWidget, QSplitter, QShortcut, QMenu, QMenuBar,
-                             QStatusBar, QProgressBar, QLabel)
+                             QStatusBar, QProgressBar, QLabel, QSize)
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtCore import Qt, QTimer
 from .constants import IDE_TITLE, DRACULA_COLORS
@@ -40,6 +40,7 @@ class IDEMainWindow(QMainWindow):
         
         # Gerenciador de temas
         self.theme_manager = ThemeManager()
+        self.theme_manager.set_theme('vscode_dark')  # Usar tema VS Code por padrão
         
         # Explorador de arquivos
         self.file_explorer = FileExplorer()
@@ -108,32 +109,63 @@ class IDEMainWindow(QMainWindow):
     def _create_toolbar(self):
         """Cria a barra de ferramentas"""
         toolbar = QToolBar()
-        self.addToolBar(toolbar)
-
-        # Botão de executar
-        run_action = QAction(QIcon.fromTheme("media-playback-start"), "Executar", self)
+        toolbar.setMovable(False)
+        toolbar.setIconSize(QSize(20, 20))
+        toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        
+        # Botão Novo Arquivo
+        new_action = QAction("📄", self)
+        new_action.setToolTip("Novo Arquivo (Ctrl+N)")
+        new_action.triggered.connect(self.add_new_tab)
+        toolbar.addAction(new_action)
+        
+        # Botão Abrir
+        open_action = QAction("📂", self)
+        open_action.setToolTip("Abrir Arquivo (Ctrl+O)")
+        open_action.triggered.connect(self.open_file)
+        toolbar.addAction(open_action)
+        
+        # Botão Salvar
+        save_action = QAction("💾", self)
+        save_action.setToolTip("Salvar (Ctrl+S)")
+        save_action.triggered.connect(self.save_file)
+        toolbar.addAction(save_action)
+        
+        toolbar.addSeparator()
+        
+        # Botão Executar
+        run_action = QAction("▶️", self)
+        run_action.setToolTip("Executar Código (F5)")
         run_action.triggered.connect(self.run_code)
         toolbar.addAction(run_action)
         
-        # Botão nova aba
-        new_tab_action = QAction(QIcon.fromTheme("document-new"), "Nova Aba", self)
+        toolbar.addSeparator()
+        
+        # Botão Nova Aba
+        new_tab_action = QAction("➕", self)
+        new_tab_action.setToolTip("Nova Aba (Ctrl+T)")
         new_tab_action.triggered.connect(self.add_new_tab)
         toolbar.addAction(new_tab_action)
         
-        # Botão gerenciador de pacotes
-        package_action = QAction(QIcon.fromTheme("applications-system"), "Pacotes", self)
-        package_action.triggered.connect(self.show_package_manager)
-        toolbar.addAction(package_action)
+        # Botão Pacotes
+        packages_action = QAction("📦", self)
+        packages_action.setToolTip("Gerenciador de Pacotes")
+        packages_action.triggered.connect(self.show_package_manager)
+        toolbar.addAction(packages_action)
         
-        # Botão explorador de arquivos
-        explorer_action = QAction(QIcon.fromTheme("folder"), "Explorador", self)
+        # Botão Explorador
+        explorer_action = QAction("🗂️", self)
+        explorer_action.setToolTip("Mostrar/Ocultar Explorador")
         explorer_action.triggered.connect(self.toggle_file_explorer)
         toolbar.addAction(explorer_action)
         
-        # Botão temas
-        theme_action = QAction(QIcon.fromTheme("preferences-desktop-theme"), "Temas", self)
-        theme_action.triggered.connect(self.show_theme_selector)
-        toolbar.addAction(theme_action)
+        # Botão Temas
+        themes_action = QAction("🎨", self)
+        themes_action.setToolTip("Selecionar Tema")
+        themes_action.triggered.connect(self.show_theme_selector)
+        toolbar.addAction(themes_action)
+        
+        self.addToolBar(toolbar)
 
     def _create_menu(self):
         """Cria o menu da aplicação"""
@@ -397,16 +429,57 @@ class IDEMainWindow(QMainWindow):
     def _create_status_bar(self):
         """Cria a barra de status"""
         status_bar = QStatusBar()
+        
+        # Informações do arquivo
+        self.file_info_label = QLabel("Nenhum arquivo aberto")
+        status_bar.addWidget(self.file_info_label)
+        
+        # Separador
+        status_bar.addPermanentWidget(QLabel("|"))
+        
+        # Posição do cursor
+        self.cursor_position_label = QLabel("Linha 1, Coluna 1")
+        status_bar.addPermanentWidget(self.cursor_position_label)
+        
+        # Separador
+        status_bar.addPermanentWidget(QLabel("|"))
+        
+        # Encoding
+        self.encoding_label = QLabel("UTF-8")
+        status_bar.addPermanentWidget(self.encoding_label)
+        
+        # Separador
+        status_bar.addPermanentWidget(QLabel("|"))
+        
+        # Modo de inserção
+        self.insert_mode_label = QLabel("INS")
+        status_bar.addPermanentWidget(self.insert_mode_label)
+        
+        # Conectar sinais para atualizar posição do cursor
+        self.tab_manager.currentChanged.connect(self.update_cursor_position)
+        
+        # Conectar sinais para atualizar quando o texto mudar
+        self.tab_manager.textChanged.connect(self.update_cursor_position)
+        
         self.setStatusBar(status_bar)
         
-        # Label para mostrar informações
-        self.status_label = QLabel("Pronto")
-        status_bar.addWidget(self.status_label)
-        
-        # Barra de progresso
-        self.progress_bar = QProgressBar()
-        self.progress_bar.setVisible(False)
-        status_bar.addPermanentWidget(self.progress_bar)
+    def update_cursor_position(self):
+        """Atualiza a posição do cursor na barra de status"""
+        current_editor = self.tab_manager.get_current_editor()
+        if current_editor:
+            cursor = current_editor.textCursor()
+            line = cursor.blockNumber() + 1
+            column = cursor.positionInBlock() + 1
+            self.cursor_position_label.setText(f"Linha {line}, Coluna {column}")
+            
+            # Atualizar informações do arquivo
+            tab_info = self.tab_manager.get_current_tab_info()
+            if tab_info and tab_info.get('filename'):
+                filename = tab_info['filename']
+                modified = "●" if tab_info.get('modified', False) else ""
+                self.file_info_label.setText(f"{filename} {modified}")
+            else:
+                self.file_info_label.setText("Nenhum arquivo aberto")
     
     def on_tab_closed(self, index):
         """Chamado quando uma aba é fechada"""

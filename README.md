@@ -10,23 +10,19 @@ Um editor de código Python simples, elegante e funcional desenvolvido com PyQt5
 
 ## ✨ Características
 
-- 🎨 **Tema Dracula**: Interface moderna e elegante com cores escuras
-- 📝 **Syntax Highlighting**: Destaque de sintaxe para Python com Pygments
-- 🔢 **Numeração de Linhas**: Visualização clara das linhas de código
-- 🎯 **Breakpoints Visuais**: Clique na área de numeração para definir breakpoints
-- ▶️ **Execução Integrada**: Execute código Python diretamente na IDE
-- 💻 **Console Integrado**: Terminal embutido para comandos do sistema
-- 📁 **Gerenciamento de Arquivos**: Abrir, salvar e salvar como arquivos Python
-- ⌨️ **Atalhos de Teclado**: Navegação rápida com atalhos intuitivos
-- 📑 **Múltiplas Abas**: Trabalhe com vários arquivos simultaneamente
-- 🎯 **Autocompletar Inteligente**: Sugestões de código em tempo real
-- 📦 **Gerenciador de Pacotes**: Instale bibliotecas Python diretamente na IDE
-- ⌨️ **Snippets de Código**: Templates prontos para uso
-- 🔄 **Suporte a Input/Output**: Execute código com entrada interativa
-- 📊 **Barra de Status**: Informações em tempo real sobre o projeto
-- 🎨 **Múltiplos Temas**: 5 temas diferentes (Dracula, Monokai, Solarized Dark, GitHub Dark, One Dark)
-- 📁 **Explorador de Arquivos**: Navegue e gerencie arquivos diretamente na IDE
-- 🔧 **Interface Aprimorada**: Layout moderno com splitters redimensionáveis
+- **Editor de Código Avançado**: Syntax highlighting para Python, numeração de linhas, e destaque da linha atual
+- **Múltiplas Abas**: Suporte a múltiplos arquivos abertos simultaneamente com indicadores de modificação
+- **Autocompletar Inteligente**: Sugestões baseadas em keywords, built-ins e pacotes instalados
+- **Gerenciador de Pacotes**: Instalação e gerenciamento de pacotes Python via pip
+- **Snippets de Código**: Templates pré-definidos para acelerar o desenvolvimento
+- **Suporte a Input/Output**: Execução interativa com suporte a `input()` e `print()`
+- **Barra de Status**: Informações em tempo real sobre arquivo, posição do cursor e encoding
+- **Múltiplos Temas**: 6 temas profissionais incluindo VS Code Dark, Dracula, Monokai, Solarized Dark, GitHub Dark e One Dark
+- **Explorador de Arquivos**: Navegação e gerenciamento de arquivos integrado
+- **Interface Aprimorada**: Design moderno e profissional similar ao VS Code
+- **Cursor e Seleção Melhorados**: Estilização avançada do cursor e seleção de texto
+- **Abas com Botões de Fechamento**: Interface de abas moderna com indicadores visuais
+- **Menu de Contexto Avançado**: Menus contextuais ricos com ícones e funcionalidades
 
 ## 🚀 Instalação
 
@@ -98,11 +94,45 @@ A IDE é dividida em duas áreas principais:
 - Acesso via menu Editar → Snippets
 - Inserção rápida de código boilerplate
 
-#### 🎨 Múltiplos Temas
-- 5 temas profissionais disponíveis
-- Acesso via menu Visual → Temas
-- Temas: Dracula, Monokai, Solarized Dark, GitHub Dark, One Dark
-- Aplicação instantânea de temas
+## 🎨 Múltiplos Temas
+
+A IDE PyPy oferece 6 temas profissionais para personalizar sua experiência de desenvolvimento:
+
+### VS Code Dark (Padrão)
+- **Tema principal**: Baseado no Visual Studio Code
+- **Cores**: Cinza escuro (#1e1e1e) com azul de destaque (#007acc)
+- **Ideal para**: Desenvolvedores que preferem a aparência do VS Code
+
+### Dracula
+- **Cores**: Roxo escuro (#282a36) com tons vibrantes
+- **Destaque**: Verde (#50fa7b) e rosa (#ff79c6)
+- **Ideal para**: Quem gosta de cores contrastantes e vibrantes
+
+### Monokai
+- **Cores**: Cinza muito escuro (#272822) com cores neon
+- **Destaque**: Verde neon (#a6e22e) e rosa (#f92672)
+- **Ideal para**: Desenvolvedores que preferem temas com cores neon
+
+### Solarized Dark
+- **Cores**: Azul esverdeado (#002b36) com tons suaves
+- **Destaque**: Laranja (#cb4b16) e verde (#859900)
+- **Ideal para**: Redução de fadiga visual e longas sessões de código
+
+### GitHub Dark
+- **Cores**: Cinza muito escuro (#0d1117) com azul GitHub
+- **Destaque**: Azul (#1f6feb) e verde (#238636)
+- **Ideal para**: Quem gosta da aparência do GitHub Dark
+
+### One Dark
+- **Cores**: Cinza escuro (#282c34) com tons quentes
+- **Destaque**: Roxo (#c678dd) e azul (#61afef)
+- **Ideal para**: Desenvolvedores que preferem temas equilibrados
+
+### Como Trocar de Tema
+1. Clique no botão **🎨** na barra de ferramentas
+2. Selecione o tema desejado na lista
+3. O tema será aplicado instantaneamente
+4. A escolha é salva automaticamente
 
 #### 📁 Explorador de Arquivos
 - Navegação completa de arquivos e pastas

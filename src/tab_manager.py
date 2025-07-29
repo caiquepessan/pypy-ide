@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QMenu, QAction
+from PyQt5.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QMenu, QAction, QMessageBox
 from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtGui import QFont
 from .code_editor import CodeEditor
 from .syntax_highlighter import PythonHighlighter
 
@@ -9,6 +10,7 @@ class TabManager(QTabWidget):
     
     tab_closed = pyqtSignal(int)
     tab_saved = pyqtSignal(int, str)
+    textChanged = pyqtSignal()  # Sinal para mudanças de texto
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -17,11 +19,18 @@ class TabManager(QTabWidget):
         self.tabCloseRequested.connect(self.close_tab)
         self.setup_context_menu()
         
+        # Configurar fonte das abas
+        font = QFont("Segoe UI", 9)
+        self.setFont(font)
+        
         # Contador para nomes de abas
         self.tab_counter = 1
         
         # Dicionário para armazenar informações das abas
         self.tab_info = {}
+        
+        # Conectar sinais para detectar mudanças
+        self.currentChanged.connect(self._on_tab_changed)
     
     def setup_context_menu(self):
         """Configura menu de contexto para as abas"""
@@ -33,17 +42,23 @@ class TabManager(QTabWidget):
         menu = QMenu()
         
         # Ações do menu
-        new_tab_action = QAction("Nova Aba", self)
+        new_tab_action = QAction("📄 Nova Aba", self)
         new_tab_action.triggered.connect(self.add_new_tab)
         
-        save_action = QAction("Salvar", self)
+        save_action = QAction("💾 Salvar", self)
         save_action.triggered.connect(self.save_current_tab)
         
-        save_as_action = QAction("Salvar Como", self)
+        save_as_action = QAction("💾 Salvar Como", self)
         save_as_action.triggered.connect(self.save_as_current_tab)
         
-        close_action = QAction("Fechar Aba", self)
+        close_action = QAction("❌ Fechar Aba", self)
         close_action.triggered.connect(lambda: self.close_tab(self.currentIndex()))
+        
+        close_others_action = QAction("🔒 Fechar Outras Abas", self)
+        close_others_action.triggered.connect(self.close_other_tabs)
+        
+        close_all_action = QAction("🚪 Fechar Todas as Abas", self)
+        close_all_action.triggered.connect(self.close_all_tabs)
         
         # Adiciona ações ao menu
         menu.addAction(new_tab_action)
@@ -52,6 +67,8 @@ class TabManager(QTabWidget):
         menu.addAction(save_as_action)
         menu.addSeparator()
         menu.addAction(close_action)
+        menu.addAction(close_others_action)
+        menu.addAction(close_all_action)
         
         menu.exec_(self.mapToGlobal(position))
     
@@ -79,9 +96,12 @@ class TabManager(QTabWidget):
         # Armazena informações da aba
         self.tab_info[index] = {
             'filename': filename,
-            'saved': False,
+            'modified': False,
             'editor': editor
         }
+        
+        # Conectar sinais do editor
+        editor.document().contentsChanged.connect(lambda: self._on_text_changed(index))
         
         return index
     
@@ -92,18 +112,60 @@ class TabManager(QTabWidget):
             editor = self.widget(index)
             if editor and hasattr(editor, 'document'):
                 if editor.document().isModified():
-                    # Aqui você pode adicionar um dialog para perguntar se quer salvar
-                    pass
+                    reply = QMessageBox.question(
+                        self, "Salvar Alterações",
+                        f"Deseja salvar as alterações em '{self.tabText(index)}'?",
+                        QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel
+                    )
+                    
+                    if reply == QMessageBox.Save:
+                        if not self.save_current_tab():
+                            return  # Usuário cancelou o salvamento
+                    elif reply == QMessageBox.Cancel:
+                        return  # Usuário cancelou o fechamento
             
             # Remove a aba
             self.removeTab(index)
             
-            # Remove informações da aba
-            if index in self.tab_info:
-                del self.tab_info[index]
-            
             # Emite sinal
             self.tab_closed.emit(index)
+            
+            # Reorganiza o dicionário de informações
+            new_tab_info = {}
+            for i in range(self.count()):
+                if i < index:
+                    new_tab_info[i] = self.tab_info.get(i, {})
+                else:
+                    new_tab_info[i] = self.tab_info.get(i + 1, {})
+            self.tab_info = new_tab_info
+    
+    def close_other_tabs(self):
+        """Fecha todas as abas exceto a atual"""
+        current_index = self.currentIndex()
+        for i in range(self.count() - 1, -1, -1):
+            if i != current_index:
+                self.close_tab(i)
+    
+    def close_all_tabs(self):
+        """Fecha todas as abas"""
+        while self.count() > 0:
+            if not self.close_tab(0):
+                break  # Usuário cancelou
+    
+    def _on_tab_changed(self, index):
+        """Chamado quando a aba atual muda"""
+        self.textChanged.emit()
+    
+    def _on_text_changed(self, tab_index):
+        """Chamado quando o texto de uma aba muda"""
+        if tab_index in self.tab_info:
+            self.tab_info[tab_index]['modified'] = True
+            # Adiciona indicador de modificação no nome da aba
+            current_text = self.tabText(tab_index)
+            if not current_text.endswith('●'):
+                self.setTabText(tab_index, current_text + '●')
+        
+        self.textChanged.emit()
     
     def save_current_tab(self):
         """Salva a aba atual"""
@@ -113,6 +175,10 @@ class TabManager(QTabWidget):
             if editor:
                 content = editor.toPlainText()
                 self.tab_saved.emit(current_index, content)
+                self.tab_info[current_index]['modified'] = False # Marca como salva
+                self.setTabText(current_index, self.tabText(current_index)[:-1]) # Remove asterisco
+                return True
+        return False
     
     def save_as_current_tab(self):
         """Salva a aba atual com novo nome"""
@@ -123,6 +189,8 @@ class TabManager(QTabWidget):
                 content = editor.toPlainText()
                 # Emite sinal para que a janela principal trate do "Salvar Como"
                 self.tab_saved.emit(current_index, content)
+                self.tab_info[current_index]['modified'] = False # Marca como salva
+                self.setTabText(current_index, self.tabText(current_index)[:-1]) # Remove asterisco
     
     def get_current_editor(self):
         """Retorna o editor da aba atual"""

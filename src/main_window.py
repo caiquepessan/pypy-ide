@@ -15,6 +15,8 @@ from .tab_manager import TabManager
 from .input_dialog import InputManager, CodeExecutor
 from .package_manager import PackageManagerDialog
 from .autocomplete import CodeEditorCompleter, SnippetManager
+from .theme_manager import ThemeManager
+from .file_explorer import FileExplorer
 
 
 class IDEMainWindow(QMainWindow):
@@ -36,11 +38,21 @@ class IDEMainWindow(QMainWindow):
         # Gerenciador de snippets
         self.snippet_manager = SnippetManager()
         
+        # Gerenciador de temas
+        self.theme_manager = ThemeManager()
+        
+        # Explorador de arquivos
+        self.file_explorer = FileExplorer()
+        self.file_explorer.file_double_clicked.connect(self.open_file_from_explorer)
+        
         # Configurar layout
         self._setup_layout()
         self._create_toolbar()
         self._create_menu()
         self._create_status_bar()
+        
+        # Aplicar tema
+        self.theme_manager.apply_theme_to_widget(self)
 
         # Variáveis de estado
         self.filename = ""
@@ -71,13 +83,23 @@ class IDEMainWindow(QMainWindow):
 
     def _setup_layout(self):
         """Configura o layout da janela"""
-        splitter = QSplitter(Qt.Vertical)
-        splitter.addWidget(self.tab_manager)
-        splitter.addWidget(self.output_console)
-        splitter.setSizes([600, 200])
+        # Splitter principal horizontal
+        main_splitter = QSplitter(Qt.Horizontal)
+        
+        # Adiciona explorador de arquivos
+        main_splitter.addWidget(self.file_explorer)
+        
+        # Splitter vertical para editor e console
+        editor_splitter = QSplitter(Qt.Vertical)
+        editor_splitter.addWidget(self.tab_manager)
+        editor_splitter.addWidget(self.output_console)
+        editor_splitter.setSizes([600, 200])
+        
+        main_splitter.addWidget(editor_splitter)
+        main_splitter.setSizes([250, 950])
 
         layout = QVBoxLayout()
-        layout.addWidget(splitter)
+        layout.addWidget(main_splitter)
 
         container = QWidget()
         container.setLayout(layout)
@@ -102,6 +124,16 @@ class IDEMainWindow(QMainWindow):
         package_action = QAction(QIcon.fromTheme("applications-system"), "Pacotes", self)
         package_action.triggered.connect(self.show_package_manager)
         toolbar.addAction(package_action)
+        
+        # Botão explorador de arquivos
+        explorer_action = QAction(QIcon.fromTheme("folder"), "Explorador", self)
+        explorer_action.triggered.connect(self.toggle_file_explorer)
+        toolbar.addAction(explorer_action)
+        
+        # Botão temas
+        theme_action = QAction(QIcon.fromTheme("preferences-desktop-theme"), "Temas", self)
+        theme_action.triggered.connect(self.show_theme_selector)
+        toolbar.addAction(theme_action)
 
     def _create_menu(self):
         """Cria o menu da aplicação"""
@@ -173,6 +205,19 @@ class IDEMainWindow(QMainWindow):
         update_completion_action = QAction("Atualizar Autocompletar", self)
         update_completion_action.triggered.connect(self.update_autocomplete)
         tools_menu.addAction(update_completion_action)
+        
+        # Menu Visual
+        visual_menu = self.menuBar().addMenu("Visual")
+        
+        # Submenu Temas
+        themes_menu = visual_menu.addMenu("Temas")
+        self._populate_themes_menu(themes_menu)
+        
+        # Ação Explorador de Arquivos
+        explorer_action = QAction("Mostrar/Ocultar Explorador", self)
+        explorer_action.setShortcut("Ctrl+E")
+        explorer_action.triggered.connect(self.toggle_file_explorer)
+        visual_menu.addAction(explorer_action)
 
     def open_file(self):
         """Abre um arquivo Python"""
@@ -344,6 +389,10 @@ class IDEMainWindow(QMainWindow):
         # Ctrl+T para nova aba
         new_tab_shortcut = QShortcut(QKeySequence("Ctrl+T"), self)
         new_tab_shortcut.activated.connect(self.add_new_tab)
+        
+        # Ctrl+E para explorador de arquivos
+        explorer_shortcut = QShortcut(QKeySequence("Ctrl+E"), self)
+        explorer_shortcut.activated.connect(self.toggle_file_explorer)
     
     def _create_status_bar(self):
         """Cria a barra de status"""
@@ -367,6 +416,98 @@ class IDEMainWindow(QMainWindow):
         """Chamado quando uma aba é salva"""
         self.status_label.setText(f"Aba {index} salva")
         self.tab_manager.set_tab_modified(index, False)
+    
+    def open_file_from_explorer(self, file_path):
+        """Abre arquivo selecionado no explorador"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+            
+            # Verifica se o arquivo já está aberto
+            existing_tab = self.tab_manager.find_tab_by_filename(file_path)
+            if existing_tab >= 0:
+                self.tab_manager.setCurrentIndex(existing_tab)
+            else:
+                # Adiciona nova aba com o conteúdo
+                index = self.tab_manager.add_new_tab(file_path, content)
+                self._setup_autocomplete_for_tab(index)
+            
+            self.setWindowTitle(f"{IDE_TITLE} - {file_path}")
+            self.status_label.setText(f"Arquivo aberto: {file_path}")
+            
+        except Exception as e:
+            QMessageBox.critical(self, "Erro", f"Erro ao abrir arquivo: {e}")
+    
+    def toggle_file_explorer(self):
+        """Mostra/oculta o explorador de arquivos"""
+        if self.file_explorer.isVisible():
+            self.file_explorer.hide()
+            self.status_label.setText("Explorador de arquivos oculto")
+        else:
+            self.file_explorer.show()
+            self.status_label.setText("Explorador de arquivos visível")
+    
+    def _populate_themes_menu(self, menu):
+        """Popula o menu de temas"""
+        themes = self.theme_manager.get_theme_names()
+        for theme_id, theme_name in themes.items():
+            action = QAction(theme_name, self)
+            action.setCheckable(True)
+            action.setChecked(theme_id == self.theme_manager.current_theme)
+            action.triggered.connect(lambda checked, t=theme_id: self.change_theme(t))
+            menu.addAction(action)
+    
+    def change_theme(self, theme_name):
+        """Muda o tema da aplicação"""
+        self.theme_manager.set_theme(theme_name)
+        self.theme_manager.apply_theme_to_widget(self)
+        self.status_label.setText(f"Tema alterado para: {self.theme_manager.get_theme(theme_name)['name']}")
+    
+    def show_theme_selector(self):
+        """Mostra seletor de temas"""
+        from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QComboBox
+        
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Selecionar Tema")
+        dialog.setGeometry(300, 200, 400, 150)
+        
+        layout = QVBoxLayout()
+        
+        # Label
+        layout.addWidget(QLabel("Escolha um tema:"))
+        
+        # Combo box com temas
+        theme_combo = QComboBox()
+        themes = self.theme_manager.get_theme_names()
+        for theme_id, theme_name in themes.items():
+            theme_combo.addItem(theme_name, theme_id)
+        
+        # Define o tema atual
+        current_index = theme_combo.findData(self.theme_manager.current_theme)
+        if current_index >= 0:
+            theme_combo.setCurrentIndex(current_index)
+        
+        layout.addWidget(theme_combo)
+        
+        # Botões
+        button_layout = QHBoxLayout()
+        ok_button = QPushButton("Aplicar")
+        cancel_button = QPushButton("Cancelar")
+        
+        ok_button.clicked.connect(lambda: self.apply_selected_theme(theme_combo.currentData(), dialog))
+        cancel_button.clicked.connect(dialog.reject)
+        
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        layout.addLayout(button_layout)
+        
+        dialog.setLayout(layout)
+        dialog.exec_()
+    
+    def apply_selected_theme(self, theme_name, dialog):
+        """Aplica o tema selecionado"""
+        self.change_theme(theme_name)
+        dialog.accept()
 
     def eventFilter(self, obj, event):
         """Intercepta eventos no console"""

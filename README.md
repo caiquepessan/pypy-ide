@@ -24,6 +24,9 @@ Um editor de código Python simples, elegante e funcional desenvolvido com PyQt5
 - ⌨️ **Snippets de Código**: Templates prontos para uso
 - 🔄 **Suporte a Input/Output**: Execute código com entrada interativa
 - 📊 **Barra de Status**: Informações em tempo real sobre o projeto
+- 🎨 **Múltiplos Temas**: 5 temas diferentes (Dracula, Monokai, Solarized Dark, GitHub Dark, One Dark)
+- 📁 **Explorador de Arquivos**: Navegue e gerencie arquivos diretamente na IDE
+- 🔧 **Interface Aprimorada**: Layout moderno com splitters redimensionáveis
 
 ## 🚀 Instalação
 
@@ -95,6 +98,18 @@ A IDE é dividida em duas áreas principais:
 - Acesso via menu Editar → Snippets
 - Inserção rápida de código boilerplate
 
+#### 🎨 Múltiplos Temas
+- 5 temas profissionais disponíveis
+- Acesso via menu Visual → Temas
+- Temas: Dracula, Monokai, Solarized Dark, GitHub Dark, One Dark
+- Aplicação instantânea de temas
+
+#### 📁 Explorador de Arquivos
+- Navegação completa de arquivos e pastas
+- Clique duplo para abrir arquivos
+- Menu de contexto para criar/excluir arquivos
+- Integração completa com o editor
+
 #### 📁 Gerenciamento de Arquivos
 - **Ctrl+O**: Abrir arquivo
 - **Ctrl+S**: Salvar arquivo
@@ -110,6 +125,7 @@ A IDE é dividida em duas áreas principais:
 | `Ctrl+T` | Nova aba |
 | `Ctrl+Z` | Desfazer |
 | `Ctrl+Y` | Refazer |
+| `Ctrl+E` | Mostrar/Ocultar Explorador |
 | `Ctrl+Q` | Sair da aplicação |
 
 ## 🏗️ Estrutura do Projeto

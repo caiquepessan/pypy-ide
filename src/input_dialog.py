@@ -133,8 +133,13 @@ class CodeExecutor:
             sys.stdout = self.output_redirector
             __builtins__.input = self.input_redirector
             
-            # Executa o código
-            exec(code, {})
+            # Executa o código em um namespace limpo
+            namespace = {
+                '__builtins__': __builtins__,
+                '__name__': '__main__',
+                '__file__': None
+            }
+            exec(code, namespace)
             
             # Restaura funções originais
             sys.stdout = original_stdout

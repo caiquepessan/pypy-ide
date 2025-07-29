@@ -6,8 +6,6 @@
 
 Um editor de código Python simples, elegante e funcional desenvolvido com PyQt5. O PyPy IDE oferece uma interface moderna com tema Dracula, syntax highlighting, numeração de linhas e um console integrado para execução de código Python.
 
-![PyPy IDE Interface](https://i.imgur.com/8zIkSzy.png)
-
 ## ✨ Características
 
 - 🎨 **Tema Dracula**: Interface moderna e elegante com cores escuras

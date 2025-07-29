@@ -1,248 +1,187 @@
-# PyPy IDE 🐍
+# 🐍 PyPy IDE - IDE Python Moderna
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
-[![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-green.svg)](https://pypi.org/project/PyQt5/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+Uma IDE Python moderna e elegante desenvolvida com PyQt5, oferecendo uma experiência de desenvolvimento completa e intuitiva.
 
-Um editor de código Python simples, elegante e funcional desenvolvido com PyQt5. O PyPy IDE oferece uma interface moderna com tema Dracula, syntax highlighting, numeração de linhas e um console integrado para execução de código Python.
+## ✨ Características Principais
 
-![PyPy IDE Interface](https://i.ibb.co/R1nHZvq/image.png)
+### 🎨 Interface Moderna
+- **Ícones Unicode Modernos**: Interface limpa e intuitiva com ícones Unicode
+- **Sistema de Temas**: Múltiplos temas disponíveis (Dracula, VS Code Dark, Light, etc.)
+- **Interface Responsiva**: Layout adaptável com splitters e toolbars
 
-## ✨ Características
-
-- **Editor de Código Avançado**: Syntax highlighting para Python, numeração de linhas, e destaque da linha atual
-- **Múltiplas Abas**: Suporte a múltiplos arquivos abertos simultaneamente com indicadores de modificação
-- **Autocompletar Inteligente**: Sugestões baseadas em keywords, built-ins e pacotes instalados
-- **Gerenciador de Pacotes**: Instalação e gerenciamento de pacotes Python via pip
+### 📝 Editor Avançado
+- **Syntax Highlighting**: Destaque de sintaxe para Python
+- **Autocompletar Inteligente**: Sugestões baseadas em pacotes instalados
 - **Snippets de Código**: Templates pré-definidos para acelerar o desenvolvimento
-- **Suporte a Input/Output**: Execução interativa com suporte a `input()` e `print()`
-- **Barra de Status**: Informações em tempo real sobre arquivo, posição do cursor e encoding
-- **Múltiplos Temas**: 6 temas profissionais incluindo VS Code Dark, Dracula, Monokai, Solarized Dark, GitHub Dark e One Dark
-- **Explorador de Arquivos**: Navegação e gerenciamento de arquivos integrado
-- **Interface Aprimorada**: Design moderno e profissional similar ao VS Code
-- **Cursor e Seleção Melhorados**: Estilização avançada do cursor e seleção de texto
-- **Abas com Botões de Fechamento**: Interface de abas moderna com indicadores visuais
-- **Menu de Contexto Avançado**: Menus contextuais ricos com ícones e funcionalidades
+- **Múltiplas Abas**: Suporte a múltiplos arquivos simultaneamente
+- **Números de Linha**: Visualização da posição do cursor
 
-## 🚀 Instalação
+### 💻 Terminal Integrado
+- **Comandos Avançados**: Sistema completo de comandos internos
+- **Navegação por Histórico**: Use ↑↓ para navegar no histórico de comandos
+- **Comandos do Sistema**: Execução de comandos Python, pip, git, etc.
+- **Comandos da IDE**: Controle da IDE via terminal
+
+### 📁 Gerenciamento de Arquivos
+- **Explorador de Arquivos**: Navegação visual de diretórios
+- **Abertura Inteligente**: Detecta arquivos já abertos
+- **Salvamento Automático**: Opção de salvamento automático
+- **Múltiplos Formatos**: Suporte a diferentes tipos de arquivo
+
+### 🔧 Ferramentas Integradas
+- **Gerenciador de Pacotes**: Instalação e gerenciamento de pacotes Python
+- **Debug Básico**: Funcionalidades de debug integradas
+- **Configurações**: Interface de configuração personalizável
+- **Sistema de Ajuda**: Documentação integrada
+
+## 🚀 Comandos do Terminal
+
+### 📁 Navegação
+```bash
+cd <diretório>     # Muda diretório
+pwd                # Mostra diretório atual
+ls, dir            # Lista arquivos
+```
+
+### 📄 Arquivos
+```bash
+new                # Novo arquivo
+open <arquivo>     # Abre arquivo
+save               # Salva arquivo atual
+del <arquivo>      # Deleta arquivo
+copy <orig> <dest> # Copia arquivo
+move <orig> <dest> # Move arquivo
+```
+
+### 🔧 Sistema
+```bash
+cls, clear         # Limpa console
+python <script>    # Executa script Python
+pip <comando>      # Executa pip
+git <comando>      # Executa git
+```
+
+### 🎨 IDE
+```bash
+theme              # Muda tema
+snippets           # Gerencia snippets
+packages           # Gerencia pacotes
+explorer           # Mostra/oculta explorador
+run                # Executa arquivo atual
+status             # Status da IDE
+help               # Mostra ajuda
+```
+
+## ⌨️ Atalhos de Teclado
+
+### 📄 Arquivo
+- `Ctrl+N` - Novo arquivo
+- `Ctrl+O` - Abrir arquivo
+- `Ctrl+S` - Salvar
+- `Ctrl+T` - Nova aba
+- `Ctrl+Q` - Sair
+
+### ✏️ Editar
+- `Ctrl+Z` - Desfazer
+- `Ctrl+Y` - Refazer
+- `Ctrl+C` - Copiar
+- `Ctrl+V` - Colar
+- `Ctrl+X` - Recortar
+
+### 🚀 Execução
+- `F5` - Executar código
+- `F6` - Debug
+- `Ctrl+`` - Terminal integrado
+
+### 🗂️ Navegação
+- `Ctrl+E` - Mostrar/ocultar explorador
+- `Ctrl+F` - Buscar
+- `Ctrl+H` - Substituir
+
+### 🎨 Interface
+- `F1` - Ajuda
+- `Ctrl+,` - Configurações
+
+## 🛠️ Instalação
 
 ### Pré-requisitos
+- Python 3.7+
+- PyQt5
 
-- Python 3.7 ou superior
-- pip (gerenciador de pacotes Python)
+### Instalação
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/pypy-ide.git
+cd pypy-ide
 
-### Passos de Instalação
+# Instale as dependências
+pip install -r requirements.txt
 
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/caiquepessan/pypy-ide.git
-   cd pypy-ide
-   ```
-
-2. **Instale as dependências**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Execute a aplicação**
-   ```bash
-   python main.py
-   ```
-
-## 🎮 Como Usar
-
-### Interface Principal
-
-A IDE é dividida em duas áreas principais:
-
-- **Editor de Código**: Área superior para escrever código Python
-- **Console de Saída**: Área inferior para ver resultados e executar comandos
-
-### Funcionalidades Principais
-
-#### 📝 Editor de Código
-- Digite seu código Python no editor
-- Syntax highlighting automático
-- Numeração de linhas
-- Destaque da linha atual
-- Breakpoints visuais (clique na área de numeração)
-
-#### ▶️ Executar Código
-- **F5**: Executa o código Python no editor
-- **Botão Executar**: Clique no botão da barra de ferramentas
-- **Menu**: Arquivo → Executar
-
-#### 💻 Console Integrado
-- Digite comandos do sistema no console
-- Use `>> ` como prefixo para comandos
-- Pressione Enter para executar
-- Suporte completo a input() e print()
-
-#### 📦 Gerenciador de Pacotes
-- Instale bibliotecas Python diretamente na IDE
-- Visualize pacotes instalados
-- Interface gráfica para gerenciamento de dependências
-
-#### 🎯 Autocompletar Inteligente
-- Sugestões de palavras-chave Python
-- Autocompletar de funções built-in
-- Suporte a bibliotecas instaladas
-- Atualização automática de sugestões
-
-#### ⌨️ Snippets de Código
-- Templates prontos para estruturas comuns
-- Acesso via menu Editar → Snippets
-- Inserção rápida de código boilerplate
-
-## 🎨 Múltiplos Temas
-
-A IDE PyPy oferece 6 temas profissionais para personalizar sua experiência de desenvolvimento:
-
-### VS Code Dark (Padrão)
-- **Tema principal**: Baseado no Visual Studio Code
-- **Cores**: Cinza escuro (#1e1e1e) com azul de destaque (#007acc)
-- **Ideal para**: Desenvolvedores que preferem a aparência do VS Code
-
-### Dracula
-- **Cores**: Roxo escuro (#282a36) com tons vibrantes
-- **Destaque**: Verde (#50fa7b) e rosa (#ff79c6)
-- **Ideal para**: Quem gosta de cores contrastantes e vibrantes
-
-### Monokai
-- **Cores**: Cinza muito escuro (#272822) com cores neon
-- **Destaque**: Verde neon (#a6e22e) e rosa (#f92672)
-- **Ideal para**: Desenvolvedores que preferem temas com cores neon
-
-### Solarized Dark
-- **Cores**: Azul esverdeado (#002b36) com tons suaves
-- **Destaque**: Laranja (#cb4b16) e verde (#859900)
-- **Ideal para**: Redução de fadiga visual e longas sessões de código
-
-### GitHub Dark
-- **Cores**: Cinza muito escuro (#0d1117) com azul GitHub
-- **Destaque**: Azul (#1f6feb) e verde (#238636)
-- **Ideal para**: Quem gosta da aparência do GitHub Dark
-
-### One Dark
-- **Cores**: Cinza escuro (#282c34) com tons quentes
-- **Destaque**: Roxo (#c678dd) e azul (#61afef)
-- **Ideal para**: Desenvolvedores que preferem temas equilibrados
-
-### Como Trocar de Tema
-1. Clique no botão **🎨** na barra de ferramentas
-2. Selecione o tema desejado na lista
-3. O tema será aplicado instantaneamente
-4. A escolha é salva automaticamente
-
-#### 📁 Explorador de Arquivos
-- Navegação completa de arquivos e pastas
-- Clique duplo para abrir arquivos
-- Menu de contexto para criar/excluir arquivos
-- Integração completa com o editor
-
-#### 📁 Gerenciamento de Arquivos
-- **Ctrl+O**: Abrir arquivo
-- **Ctrl+S**: Salvar arquivo
-- **Salvar Como**: Menu Arquivo → Salvar Como
-
-### Atalhos de Teclado
-
-| Atalho | Ação |
-|--------|------|
-| `F5` | Executar código |
-| `Ctrl+O` | Abrir arquivo |
-| `Ctrl+S` | Salvar arquivo |
-| `Ctrl+T` | Nova aba |
-| `Ctrl+Z` | Desfazer |
-| `Ctrl+Y` | Refazer |
-| `Ctrl+E` | Mostrar/Ocultar Explorador |
-| `Ctrl+Q` | Sair da aplicação |
-
-## 🏗️ Estrutura do Projeto
-
-```
-pypy-ide/
-├── main.py                 # Ponto de entrada da aplicação
-├── requirements.txt        # Dependências do projeto
-├── README.md              # Este arquivo
-├── LICENSE                # Licença do projeto
-└── src/                   # Código fonte
-    ├── __init__.py        # Inicializador do pacote
-    ├── constants.py       # Constantes e configurações
-    ├── syntax_highlighter.py  # Syntax highlighting
-    ├── code_editor.py     # Editor de código
-    └── main_window.py     # Janela principal da IDE
+# Execute a IDE
+python main.py
 ```
 
-## 🎨 Tema Dracula
+## 📦 Dependências
 
-O PyPy IDE utiliza o tema Dracula, oferecendo:
+```
+PyQt5>=5.15.0
+```
 
-- **Cores Escuras**: Reduz fadiga visual
-- **Alto Contraste**: Melhor legibilidade
-- **Paleta Harmoniosa**: Cores cuidadosamente escolhidas
+## 🎨 Temas Disponíveis
 
-### Paleta de Cores
+- **Dracula**: Tema escuro elegante
+- **VS Code Dark**: Tema escuro inspirado no VS Code
+- **Light**: Tema claro
+- **Monokai**: Tema colorido
+- **Solarized**: Tema suave
 
-- **Fundo**: `#282a36`
-- **Texto**: `#f8f8f2`
-- **Palavras-chave**: `#ff79c6`
-- **Funções**: `#50fa7b`
-- **Strings**: `#f1fa8c`
-- **Comentários**: `#6272a4`
-- **Números**: `#bd93f9`
+## 🔧 Configuração
 
-## 🔧 Desenvolvimento
+A IDE oferece uma interface de configuração completa onde você pode:
 
-### Estrutura Modular
+- Ajustar tamanho da fonte
+- Configurar largura da tabulação
+- Definir tema padrão
+- Configurar histórico de comandos
+- Personalizar comportamento do terminal
 
-O projeto foi organizado em módulos separados para facilitar manutenção e extensão:
+## 💡 Dicas de Uso
 
-- **`constants.py`**: Centraliza configurações e cores
-- **`syntax_highlighter.py`**: Gerencia highlighting de sintaxe
-- **`code_editor.py`**: Editor de código com numeração de linhas
-- **`main_window.py`**: Janela principal e lógica da aplicação
+1. **Terminal Integrado**: Use `Ctrl+`` para abrir o terminal
+2. **Histórico de Comandos**: Use ↑↓ no terminal para navegar
+3. **Autocompletar**: Digite e pressione `Ctrl+Space` para sugestões
+4. **Snippets**: Use o menu Editar > Snippets para templates
+5. **Temas**: Experimente diferentes temas em Visual > Temas
+6. **Explorador**: Use `Ctrl+E` para mostrar/ocultar o explorador
 
-### Adicionando Novas Funcionalidades
+## 🐛 Debug
 
-1. **Novos Temas**: Modifique `DRACULA_COLORS` em `constants.py`
-2. **Novos Atalhos**: Adicione em `main_window.py`
-3. **Novos Menus**: Estenda `_create_menu()` em `main_window.py`
+Para reportar bugs ou sugerir melhorias:
 
-## 🤝 Contribuindo
+1. Abra uma issue no GitHub
+2. Inclua informações sobre seu sistema
+3. Descreva o problema detalhadamente
+
+## 🤝 Contribuição
 
 Contribuições são bem-vindas! Para contribuir:
 
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Push para a branch
 5. Abra um Pull Request
 
-### Diretrizes de Contribuição
+## 📄 Licença
 
-- Mantenha o código limpo e bem documentado
-- Adicione testes para novas funcionalidades
-- Siga as convenções de nomenclatura Python
-- Atualize a documentação quando necessário
-
-## 📝 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ## 🙏 Agradecimentos
 
-- **PyQt5**: Framework para interface gráfica
-- **Pygments**: Biblioteca para syntax highlighting
-- **Tema Dracula**: Inspiração para as cores da interface
-- **Comunidade Python**: Por todas as ferramentas e bibliotecas
-
-## 📞 Contato
-
-- **GitHub**: [@ciquepessan](https://github.com/ciquepessan)
-- **Email**: ciquepessan123@gmail.com
-- **Projeto**: [PyPy IDE](https://github.com/ciquepessan/pypy-ide)
+- PyQt5 pela excelente framework GUI
+- Comunidade Python pela inspiração
+- Contribuidores que ajudaram a melhorar a IDE
 
 ---
 
-⭐ Se este projeto te ajudou, considere dar uma estrela no repositório! 
+**Desenvolvido com ❤️ em Python** 

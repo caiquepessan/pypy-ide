@@ -18,6 +18,12 @@ Um editor de código Python simples, elegante e funcional desenvolvido com PyQt5
 - 💻 **Console Integrado**: Terminal embutido para comandos do sistema
 - 📁 **Gerenciamento de Arquivos**: Abrir, salvar e salvar como arquivos Python
 - ⌨️ **Atalhos de Teclado**: Navegação rápida com atalhos intuitivos
+- 📑 **Múltiplas Abas**: Trabalhe com vários arquivos simultaneamente
+- 🎯 **Autocompletar Inteligente**: Sugestões de código em tempo real
+- 📦 **Gerenciador de Pacotes**: Instale bibliotecas Python diretamente na IDE
+- ⌨️ **Snippets de Código**: Templates prontos para uso
+- 🔄 **Suporte a Input/Output**: Execute código com entrada interativa
+- 📊 **Barra de Status**: Informações em tempo real sobre o projeto
 
 ## 🚀 Instalação
 
@@ -71,6 +77,23 @@ A IDE é dividida em duas áreas principais:
 - Digite comandos do sistema no console
 - Use `>> ` como prefixo para comandos
 - Pressione Enter para executar
+- Suporte completo a input() e print()
+
+#### 📦 Gerenciador de Pacotes
+- Instale bibliotecas Python diretamente na IDE
+- Visualize pacotes instalados
+- Interface gráfica para gerenciamento de dependências
+
+#### 🎯 Autocompletar Inteligente
+- Sugestões de palavras-chave Python
+- Autocompletar de funções built-in
+- Suporte a bibliotecas instaladas
+- Atualização automática de sugestões
+
+#### ⌨️ Snippets de Código
+- Templates prontos para estruturas comuns
+- Acesso via menu Editar → Snippets
+- Inserção rápida de código boilerplate
 
 #### 📁 Gerenciamento de Arquivos
 - **Ctrl+O**: Abrir arquivo
@@ -84,6 +107,9 @@ A IDE é dividida em duas áreas principais:
 | `F5` | Executar código |
 | `Ctrl+O` | Abrir arquivo |
 | `Ctrl+S` | Salvar arquivo |
+| `Ctrl+T` | Nova aba |
+| `Ctrl+Z` | Desfazer |
+| `Ctrl+Y` | Refazer |
 | `Ctrl+Q` | Sair da aplicação |
 
 ## 🏗️ Estrutura do Projeto

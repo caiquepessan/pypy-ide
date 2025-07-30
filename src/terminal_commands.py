@@ -3,7 +3,7 @@ import subprocess
 import platform
 import shutil
 from pathlib import Path
-from .icons import ModernIcons
+from .icons import TextIcons
 
 class TerminalCommands:
     """Sistema de comandos do terminal integrado"""
@@ -82,13 +82,13 @@ class TerminalCommands:
     def clear_console(self, *args):
         """Limpa o console"""
         self.main_window.output_console.clear()
-        self.main_window.append_to_console(f"{ModernIcons.CLEAR_CONSOLE} Console limpo!\n")
+        self.main_window.append_to_console(f"{TextIcons.CLEAR_CONSOLE} Console limpo!\n")
         self.main_window.append_to_console(">> ")
     
     def show_help(self, *args):
         """Mostra ajuda dos comandos"""
         help_text = f"""
-{ModernIcons.COMMAND_HELP} Comandos disponíveis:
+{TextIcons.COMMAND_HELP} Comandos disponíveis:
 
 📁 Navegação:
   cd <diretório>     - Muda diretório
@@ -128,11 +128,11 @@ class TerminalCommands:
     
     def exit_terminal(self, *args):
         """Sai do terminal"""
-        self.main_window.append_to_console(f"{ModernIcons.COMMAND_EXIT} Saindo do terminal...\n")
+        self.main_window.append_to_console(f"{TextIcons.COMMAND_EXIT} Saindo do terminal...\n")
     
     def show_current_directory(self, *args):
         """Mostra o diretório atual"""
-        self.main_window.append_to_console(f"{ModernIcons.COMMAND_PWD} Diretório atual: {os.getcwd()}\n")
+        self.main_window.append_to_console(f"{TextIcons.COMMAND_PWD} Diretório atual: {os.getcwd()}\n")
     
     def list_directory(self, *args):
         """Lista arquivos do diretório"""
@@ -140,15 +140,15 @@ class TerminalCommands:
             path = args[0] if args else "."
             if os.path.exists(path):
                 items = os.listdir(path)
-                self.main_window.append_to_console(f"{ModernIcons.COMMAND_LS} Conteúdo de '{path}':\n")
+                self.main_window.append_to_console(f"{TextIcons.COMMAND_LS} Conteúdo de '{path}':\n")
                 
                 for item in sorted(items):
                     item_path = os.path.join(path, item)
                     if os.path.isdir(item_path):
-                        icon = ModernIcons.FOLDER
+                        icon = TextIcons.FOLDER
                         item += "/"
                     else:
-                        icon = ModernIcons.get_icon_for_file_type(item)
+                        icon = TextIcons.get_icon_for_file_type(item)
                     
                     self.main_window.append_to_console(f"  {icon} {item}\n")
             else:
@@ -172,7 +172,7 @@ class TerminalCommands:
             if os.path.exists(new_dir) and os.path.isdir(new_dir):
                 os.chdir(new_dir)
                 self.current_directory = os.getcwd()
-                self.main_window.append_to_console(f"{ModernIcons.COMMAND_CD} Diretório alterado para: {os.getcwd()}\n")
+                self.main_window.append_to_console(f"{TextIcons.COMMAND_CD} Diretório alterado para: {os.getcwd()}\n")
             else:
                 self.print_error(f"Diretório '{new_dir}' não encontrado")
         except Exception as e:
@@ -187,7 +187,7 @@ class TerminalCommands:
         try:
             for dir_name in args:
                 os.makedirs(dir_name, exist_ok=True)
-                self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Diretório '{dir_name}' criado\n")
+                self.main_window.append_to_console(f"{TextIcons.SUCCESS} Diretório '{dir_name}' criado\n")
         except Exception as e:
             self.print_error(f"Erro ao criar diretório: {e}")
     
@@ -201,7 +201,7 @@ class TerminalCommands:
             for dir_name in args:
                 if os.path.exists(dir_name):
                     shutil.rmtree(dir_name)
-                    self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Diretório '{dir_name}' removido\n")
+                    self.main_window.append_to_console(f"{TextIcons.SUCCESS} Diretório '{dir_name}' removido\n")
                 else:
                     self.print_error(f"Diretório '{dir_name}' não encontrado")
         except Exception as e:
@@ -217,7 +217,7 @@ class TerminalCommands:
             for file_name in args:
                 if os.path.exists(file_name):
                     os.remove(file_name)
-                    self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Arquivo '{file_name}' removido\n")
+                    self.main_window.append_to_console(f"{TextIcons.SUCCESS} Arquivo '{file_name}' removido\n")
                 else:
                     self.print_error(f"Arquivo '{file_name}' não encontrado")
         except Exception as e:
@@ -235,7 +235,7 @@ class TerminalCommands:
             
             if os.path.exists(source):
                 shutil.copy2(source, destination)
-                self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Arquivo copiado: {source} → {destination}\n")
+                self.main_window.append_to_console(f"{TextIcons.SUCCESS} Arquivo copiado: {source} → {destination}\n")
             else:
                 self.print_error(f"Arquivo '{source}' não encontrado")
         except Exception as e:
@@ -253,7 +253,7 @@ class TerminalCommands:
             
             if os.path.exists(source):
                 shutil.move(source, destination)
-                self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Arquivo movido: {source} → {destination}\n")
+                self.main_window.append_to_console(f"{TextIcons.SUCCESS} Arquivo movido: {source} → {destination}\n")
             else:
                 self.print_error(f"Arquivo '{source}' não encontrado")
         except Exception as e:
@@ -270,7 +270,7 @@ class TerminalCommands:
             if os.path.exists(file_path):
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    self.main_window.append_to_console(f"{ModernIcons.INFO} Conteúdo de '{file_path}':\n")
+                    self.main_window.append_to_console(f"{TextIcons.INFO} Conteúdo de '{file_path}':\n")
                     self.main_window.append_to_console(content + "\n")
             else:
                 self.print_error(f"Arquivo '{file_path}' não encontrado")
@@ -286,11 +286,11 @@ class TerminalCommands:
     def show_history(self, *args):
         """Mostra histórico de comandos"""
         if self.command_history:
-            self.main_window.append_to_console(f"{ModernIcons.COMMAND_HISTORY} Histórico de comandos:\n")
+            self.main_window.append_to_console(f"{TextIcons.COMMAND_HISTORY} Histórico de comandos:\n")
             for i, cmd in enumerate(self.command_history[-10:], 1):  # Últimos 10 comandos
                 self.main_window.append_to_console(f"  {i:2d}. {cmd}\n")
         else:
-            self.main_window.append_to_console(f"{ModernIcons.INFO} Nenhum comando no histórico\n")
+            self.main_window.append_to_console(f"{TextIcons.INFO} Nenhum comando no histórico\n")
     
     def run_system_command(self, command):
         """Executa comando do sistema"""
@@ -371,7 +371,7 @@ class TerminalCommands:
             chars = len(content)
             
             status_text = f"""
-{ModernIcons.INFO} Status da IDE:
+{TextIcons.INFO} Status da IDE:
   📄 Arquivo atual: {self.main_window.tab_manager.get_current_tab_info().get('filename', 'Sem nome')}
   📊 Linhas: {lines}
   🔤 Caracteres: {chars}
@@ -386,7 +386,7 @@ class TerminalCommands:
     def show_info(self, *args):
         """Mostra informações do sistema"""
         info_text = f"""
-{ModernIcons.INFO} Informações do Sistema:
+{TextIcons.INFO} Informações do Sistema:
   💻 Sistema Operacional: {platform.system()} {platform.release()}
   🐍 Python: {platform.python_version()}
   📁 Diretório atual: {os.getcwd()}
@@ -400,7 +400,7 @@ class TerminalCommands:
         if args:
             theme_name = args[0]
             self.main_window.change_theme(theme_name)
-            self.main_window.append_to_console(f"{ModernIcons.SUCCESS} Tema alterado para: {theme_name}\n")
+            self.main_window.append_to_console(f"{TextIcons.SUCCESS} Tema alterado para: {theme_name}\n")
         else:
             self.main_window.show_theme_selector()
     
@@ -408,26 +408,26 @@ class TerminalCommands:
         """Mostra snippets disponíveis"""
         snippets = self.main_window.snippet_manager.get_all_snippets()
         if snippets:
-            self.main_window.append_to_console(f"{ModernIcons.SNIPPETS} Snippets disponíveis:\n")
+            self.main_window.append_to_console(f"{TextIcons.SNIPPETS} Snippets disponíveis:\n")
             for name in snippets.keys():
                 self.main_window.append_to_console(f"  📝 {name}\n")
         else:
-            self.main_window.append_to_console(f"{ModernIcons.INFO} Nenhum snippet disponível\n")
+            self.main_window.append_to_console(f"{TextIcons.INFO} Nenhum snippet disponível\n")
     
     def show_packages(self, *args):
         """Abre gerenciador de pacotes"""
         self.main_window.show_package_manager()
-        self.main_window.append_to_console(f"{ModernIcons.PACKAGES} Gerenciador de pacotes aberto\n")
+        self.main_window.append_to_console(f"{TextIcons.PACKAGES} Gerenciador de pacotes aberto\n")
     
     def toggle_explorer(self, *args):
         """Mostra/oculta explorador de arquivos"""
         self.main_window.toggle_file_explorer()
-        self.main_window.append_to_console(f"{ModernIcons.EXPLORER} Explorador de arquivos alternado\n")
+        self.main_window.append_to_console(f"{TextIcons.EXPLORER} Explorador de arquivos alternado\n")
     
     def new_file(self, *args):
         """Cria novo arquivo"""
         self.main_window.add_new_tab()
-        self.main_window.append_to_console(f"{ModernIcons.NEW_FILE} Novo arquivo criado\n")
+        self.main_window.append_to_console(f"{TextIcons.NEW_FILE} Novo arquivo criado\n")
     
     def open_file(self, *args):
         """Abre arquivo"""
@@ -435,7 +435,7 @@ class TerminalCommands:
             file_path = args[0]
             if os.path.exists(file_path):
                 self.main_window.open_file_from_path(file_path)
-                self.main_window.append_to_console(f"{ModernIcons.OPEN_FILE} Arquivo aberto: {file_path}\n")
+                self.main_window.append_to_console(f"{TextIcons.OPEN_FILE} Arquivo aberto: {file_path}\n")
             else:
                 self.print_error(f"Arquivo '{file_path}' não encontrado")
         else:
@@ -444,16 +444,16 @@ class TerminalCommands:
     def save_file(self, *args):
         """Salva arquivo atual"""
         self.main_window.save_file()
-        self.main_window.append_to_console(f"{ModernIcons.SAVE_FILE} Arquivo salvo\n")
+        self.main_window.append_to_console(f"{TextIcons.SAVE_FILE} Arquivo salvo\n")
     
     def run_current_file(self, *args):
         """Executa arquivo atual"""
         self.main_window.run_code()
-        self.main_window.append_to_console(f"{ModernIcons.RUN_CODE} Executando arquivo atual\n")
+        self.main_window.append_to_console(f"{TextIcons.RUN_CODE} Executando arquivo atual\n")
     
     def print_error(self, message):
         """Imprime mensagem de erro"""
-        self.main_window.append_to_console(f"{ModernIcons.ERROR} {message}\n")
+        self.main_window.append_to_console(f"{TextIcons.ERROR} {message}\n")
     
     def get_previous_command(self):
         """Retorna comando anterior do histórico"""

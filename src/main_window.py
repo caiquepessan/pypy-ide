@@ -17,7 +17,7 @@ from .package_manager import PackageManagerDialog
 from .autocomplete import CodeEditorCompleter, SnippetManager
 from .theme_manager import ThemeManager
 from .file_explorer import FileExplorer
-from .icons import ModernIcons
+from .icons import modern_icons, TextIcons
 from .terminal_commands import TerminalCommands
 
 
@@ -112,26 +112,29 @@ class IDEMainWindow(QMainWindow):
         self.setCentralWidget(container)
 
     def _create_toolbar(self):
-        """Cria a barra de ferramentas com ícones modernos"""
+        """Cria a barra de ferramentas com ícones SVG modernos"""
         toolbar = QToolBar()
         toolbar.setMovable(False)
         toolbar.setIconSize(QSize(24, 24))
         toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
         # Botão Novo Arquivo
-        new_action = QAction(ModernIcons.NEW_FILE, self)
+        new_action = QAction("", self)
+        new_action.setIcon(modern_icons.new_file(24))
         new_action.setToolTip("Novo Arquivo (Ctrl+N)")
         new_action.triggered.connect(self.add_new_tab)
         toolbar.addAction(new_action)
         
         # Botão Abrir
-        open_action = QAction(ModernIcons.OPEN_FILE, self)
+        open_action = QAction("", self)
+        open_action.setIcon(modern_icons.open_file(24))
         open_action.setToolTip("Abrir Arquivo (Ctrl+O)")
         open_action.triggered.connect(self.open_file)
         toolbar.addAction(open_action)
         
         # Botão Salvar
-        save_action = QAction(ModernIcons.SAVE_FILE, self)
+        save_action = QAction("", self)
+        save_action.setIcon(modern_icons.save_file(24))
         save_action.setToolTip("Salvar (Ctrl+S)")
         save_action.triggered.connect(self.save_file)
         toolbar.addAction(save_action)
@@ -139,13 +142,15 @@ class IDEMainWindow(QMainWindow):
         toolbar.addSeparator()
         
         # Botão Executar
-        run_action = QAction(ModernIcons.RUN_CODE, self)
+        run_action = QAction("", self)
+        run_action.setIcon(modern_icons.run_code(24))
         run_action.setToolTip("Executar Código (F5)")
         run_action.triggered.connect(self.run_code)
         toolbar.addAction(run_action)
         
         # Botão Debug
-        debug_action = QAction(ModernIcons.DEBUG, self)
+        debug_action = QAction("", self)
+        debug_action.setIcon(modern_icons.debug(24))
         debug_action.setToolTip("Debug (F6)")
         debug_action.triggered.connect(self.debug_code)
         toolbar.addAction(debug_action)
@@ -153,37 +158,43 @@ class IDEMainWindow(QMainWindow):
         toolbar.addSeparator()
         
         # Botão Nova Aba
-        new_tab_action = QAction(ModernIcons.NEW_TAB, self)
+        new_tab_action = QAction("", self)
+        new_tab_action.setIcon(modern_icons.new_file(24))
         new_tab_action.setToolTip("Nova Aba (Ctrl+T)")
         new_tab_action.triggered.connect(self.add_new_tab)
         toolbar.addAction(new_tab_action)
         
         # Botão Pacotes
-        packages_action = QAction(ModernIcons.PACKAGES, self)
+        packages_action = QAction("", self)
+        packages_action.setIcon(modern_icons.packages(24))
         packages_action.setToolTip("Gerenciador de Pacotes")
         packages_action.triggered.connect(self.show_package_manager)
         toolbar.addAction(packages_action)
         
         # Botão Explorador
-        explorer_action = QAction(ModernIcons.EXPLORER, self)
+        explorer_action = QAction("", self)
+        explorer_action.setIcon(modern_icons.explorer(24))
         explorer_action.setToolTip("Mostrar/Ocultar Explorador (Ctrl+E)")
         explorer_action.triggered.connect(self.toggle_file_explorer)
         toolbar.addAction(explorer_action)
         
         # Botão Temas
-        themes_action = QAction(ModernIcons.THEMES, self)
+        themes_action = QAction("", self)
+        themes_action.setIcon(modern_icons.themes(24))
         themes_action.setToolTip("Selecionar Tema")
         themes_action.triggered.connect(self.show_theme_selector)
         toolbar.addAction(themes_action)
         
         # Botão Terminal
-        terminal_action = QAction(ModernIcons.TERMINAL, self)
+        terminal_action = QAction("", self)
+        terminal_action.setIcon(modern_icons.terminal(24))
         terminal_action.setToolTip("Terminal Integrado (Ctrl+`)")
         terminal_action.triggered.connect(self.toggle_terminal)
         toolbar.addAction(terminal_action)
         
         # Botão Configurações
-        settings_action = QAction(ModernIcons.SETTINGS, self)
+        settings_action = QAction("", self)
+        settings_action.setIcon(modern_icons.settings(24))
         settings_action.setToolTip("Configurações")
         settings_action.triggered.connect(self.show_settings)
         toolbar.addAction(settings_action)
@@ -193,28 +204,28 @@ class IDEMainWindow(QMainWindow):
     def _create_menu(self):
         """Cria o menu da aplicação com ícones modernos"""
         # Menu Arquivo
-        file_menu = self.menuBar().addMenu(f"{ModernIcons.FILE_MENU} Arquivo")
+        file_menu = self.menuBar().addMenu(f"{TextIcons.FILE_MENU} Arquivo")
 
         # Ação Nova Aba
-        new_tab = QAction(f"{ModernIcons.NEW_TAB} Nova Aba", self)
+        new_tab = QAction(f"{TextIcons.NEW_TAB} Nova Aba", self)
         new_tab.setShortcut("Ctrl+T")
         new_tab.triggered.connect(self.add_new_tab)
         file_menu.addAction(new_tab)
 
         # Ação Abrir
-        open_file = QAction(f"{ModernIcons.OPEN_FILE} Abrir", self)
+        open_file = QAction(f"{TextIcons.OPEN_FILE} Abrir", self)
         open_file.setShortcut("Ctrl+O")
         open_file.triggered.connect(self.open_file)
         file_menu.addAction(open_file)
 
         # Ação Salvar
-        save_file = QAction(f"{ModernIcons.SAVE_FILE} Salvar", self)
+        save_file = QAction(f"{TextIcons.SAVE_FILE} Salvar", self)
         save_file.setShortcut("Ctrl+S")
         save_file.triggered.connect(self.save_file)
         file_menu.addAction(save_file)
 
         # Ação Salvar Como
-        save_as_file = QAction(f"{ModernIcons.SAVE_AS} Salvar Como", self)
+        save_as_file = QAction(f"{TextIcons.SAVE_AS} Salvar Como", self)
         save_as_file.triggered.connect(self.save_file_as)
         file_menu.addAction(save_as_file)
 
@@ -222,22 +233,22 @@ class IDEMainWindow(QMainWindow):
         file_menu.addSeparator()
 
         # Ação Sair
-        exit_app = QAction(f"{ModernIcons.COMMAND_EXIT} Sair", self)
+        exit_app = QAction(f"{TextIcons.COMMAND_EXIT} Sair", self)
         exit_app.setShortcut("Ctrl+Q")
         exit_app.triggered.connect(self.close)
         file_menu.addAction(exit_app)
 
         # Menu Editar
-        edit_menu = self.menuBar().addMenu(f"{ModernIcons.EDIT_MENU} Editar")
+        edit_menu = self.menuBar().addMenu(f"{TextIcons.EDIT_MENU} Editar")
         
         # Ação Desfazer
-        undo_action = QAction(f"{ModernIcons.UNDO} Desfazer", self)
+        undo_action = QAction(f"{TextIcons.UNDO} Desfazer", self)
         undo_action.setShortcut("Ctrl+Z")
         undo_action.triggered.connect(self.undo)
         edit_menu.addAction(undo_action)
         
         # Ação Refazer
-        redo_action = QAction(f"{ModernIcons.REDO} Refazer", self)
+        redo_action = QAction(f"{TextIcons.REDO} Refazer", self)
         redo_action.setShortcut("Ctrl+Y")
         redo_action.triggered.connect(self.redo)
         edit_menu.addAction(redo_action)
@@ -245,51 +256,51 @@ class IDEMainWindow(QMainWindow):
         edit_menu.addSeparator()
         
         # Menu Snippets
-        snippets_menu = edit_menu.addMenu(f"{ModernIcons.SNIPPETS} Snippets")
+        snippets_menu = edit_menu.addMenu(f"{TextIcons.SNIPPETS} Snippets")
         self._populate_snippets_menu(snippets_menu)
 
         # Menu Ferramentas
-        tools_menu = self.menuBar().addMenu(f"{ModernIcons.TOOLS_MENU} Ferramentas")
+        tools_menu = self.menuBar().addMenu(f"{TextIcons.TOOLS_MENU} Ferramentas")
         
         # Ação Gerenciador de Pacotes
-        package_action = QAction(f"{ModernIcons.PACKAGES} Gerenciador de Pacotes", self)
+        package_action = QAction(f"{TextIcons.PACKAGES} Gerenciador de Pacotes", self)
         package_action.triggered.connect(self.show_package_manager)
         tools_menu.addAction(package_action)
         
         # Ação Atualizar Autocompletar
-        update_completion_action = QAction(f"{ModernIcons.AUTOCOMPLETE} Atualizar Autocompletar", self)
+        update_completion_action = QAction(f"{TextIcons.AUTOCOMPLETE} Atualizar Autocompletar", self)
         update_completion_action.triggered.connect(self.update_autocomplete)
         tools_menu.addAction(update_completion_action)
         
         # Ação Terminal
-        terminal_action = QAction(f"{ModernIcons.TERMINAL} Terminal Integrado", self)
+        terminal_action = QAction(f"{TextIcons.TERMINAL} Terminal Integrado", self)
         terminal_action.setShortcut("Ctrl+`")
         terminal_action.triggered.connect(self.toggle_terminal)
         tools_menu.addAction(terminal_action)
         
         # Menu Visual
-        visual_menu = self.menuBar().addMenu(f"{ModernIcons.VIEW_MENU} Visual")
+        visual_menu = self.menuBar().addMenu(f"{TextIcons.VIEW_MENU} Visual")
         
         # Submenu Temas
-        themes_menu = visual_menu.addMenu(f"{ModernIcons.THEMES} Temas")
+        themes_menu = visual_menu.addMenu(f"{TextIcons.THEMES} Temas")
         self._populate_themes_menu(themes_menu)
         
         # Ação Explorador de Arquivos
-        explorer_action = QAction(f"{ModernIcons.EXPLORER} Mostrar/Ocultar Explorador", self)
+        explorer_action = QAction(f"{TextIcons.EXPLORER} Mostrar/Ocultar Explorador", self)
         explorer_action.setShortcut("Ctrl+E")
         explorer_action.triggered.connect(self.toggle_file_explorer)
         visual_menu.addAction(explorer_action)
         
         # Menu Ajuda
-        help_menu = self.menuBar().addMenu(f"{ModernIcons.HELP_MENU} Ajuda")
+        help_menu = self.menuBar().addMenu(f"{TextIcons.HELP_MENU} Ajuda")
         
         # Ação Sobre
-        about_action = QAction(f"{ModernIcons.INFO} Sobre", self)
+        about_action = QAction(f"{TextIcons.ABOUT} Sobre", self)
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
         
         # Ação Ajuda
-        help_action = QAction(f"{ModernIcons.COMMAND_HELP} Ajuda", self)
+        help_action = QAction(f"{TextIcons.HELP} Ajuda", self)
         help_action.setShortcut("F1")
         help_action.triggered.connect(self.show_help)
         help_menu.addAction(help_action)
@@ -383,12 +394,12 @@ class IDEMainWindow(QMainWindow):
         """Executa o código Python no editor"""
         code = self.tab_manager.get_current_content()
         if not code.strip():
-            self.append_to_console(f"{ModernIcons.ERROR} Nenhum código para executar.\n")
+            self.append_to_console(f"{TextIcons.ERROR} Nenhum código para executar.\n")
             return
             
         # Limpa o console
         self.output_console.clear()
-        self.append_to_console(f"{ModernIcons.RUN_CODE} Executando código...\n")
+        self.append_to_console(f"{TextIcons.RUN_CODE} Executando código...\n")
         
         # Executa o código com suporte a input/output
         self.code_executor.execute_code(code)
@@ -418,7 +429,7 @@ class IDEMainWindow(QMainWindow):
         """Atualiza o autocompletar com pacotes instalados"""
         if hasattr(self, 'completer'):
             self.completer.update_package_completions()
-        self.append_to_console(f"{ModernIcons.SUCCESS} Autocompletar atualizado!\n")
+        self.append_to_console(f"{TextIcons.SUCCESS} Autocompletar atualizado!\n")
     
     def show_package_manager(self):
         """Mostra o gerenciador de pacotes"""
@@ -558,10 +569,10 @@ class IDEMainWindow(QMainWindow):
         """Mostra/oculta o explorador de arquivos"""
         if self.file_explorer.isVisible():
             self.file_explorer.hide()
-            self.file_info_label.setText(f"{ModernIcons.EXPLORER} Explorador oculto")
+            self.file_info_label.setText(f"{TextIcons.EXPLORER} Explorador oculto")
         else:
             self.file_explorer.show()
-            self.file_info_label.setText(f"{ModernIcons.EXPLORER} Explorador visível")
+            self.file_info_label.setText(f"{TextIcons.EXPLORER} Explorador visível")
     
     def _populate_themes_menu(self, menu):
         """Popula o menu de temas"""
@@ -577,26 +588,26 @@ class IDEMainWindow(QMainWindow):
         """Muda o tema da aplicação"""
         self.theme_manager.set_theme(theme_name)
         self.theme_manager.apply_theme_to_widget(self)
-        self.file_info_label.setText(f"{ModernIcons.THEMES} Tema: {self.theme_manager.get_theme(theme_name)['name']}")
+        self.file_info_label.setText(f"{TextIcons.THEMES} Tema: {self.theme_manager.get_theme(theme_name)['name']}")
     
     def show_theme_selector(self):
         """Mostra seletor de temas"""
         from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QComboBox
         
         dialog = QDialog(self)
-        dialog.setWindowTitle(f"{ModernIcons.THEMES} Selecionar Tema")
+        dialog.setWindowTitle(f"{TextIcons.THEMES} Selecionar Tema")
         dialog.setGeometry(300, 200, 400, 150)
         
         layout = QVBoxLayout()
         
         # Label
-        layout.addWidget(QLabel(f"{ModernIcons.THEMES} Escolha um tema:"))
+        layout.addWidget(QLabel(f"{TextIcons.THEMES} Escolha um tema:"))
         
         # Combo box com temas
         theme_combo = QComboBox()
         themes = self.theme_manager.get_theme_names()
         for theme_id, theme_name in themes.items():
-            theme_combo.addItem(f"{ModernIcons.THEMES} {theme_name}", theme_id)
+            theme_combo.addItem(f"{TextIcons.THEMES} {theme_name}", theme_id)
         
         # Define o tema atual
         current_index = theme_combo.findData(self.theme_manager.current_theme)
@@ -607,8 +618,8 @@ class IDEMainWindow(QMainWindow):
         
         # Botões
         button_layout = QHBoxLayout()
-        ok_button = QPushButton(f"{ModernIcons.SUCCESS} Aplicar")
-        cancel_button = QPushButton(f"{ModernIcons.ERROR} Cancelar")
+        ok_button = QPushButton(f"{TextIcons.SUCCESS} Aplicar")
+        cancel_button = QPushButton(f"{TextIcons.ERROR} Cancelar")
         
         ok_button.clicked.connect(lambda: self.apply_selected_theme(theme_combo.currentData(), dialog))
         cancel_button.clicked.connect(dialog.reject)
@@ -629,28 +640,28 @@ class IDEMainWindow(QMainWindow):
         """Executa o código em modo debug"""
         code = self.tab_manager.get_current_content()
         if not code.strip():
-            self.append_to_console(f"{ModernIcons.ERROR} Nenhum código para executar em debug.\n")
+            self.append_to_console(f"{TextIcons.ERROR} Nenhum código para executar em debug.\n")
             return
         
-        self.append_to_console(f"{ModernIcons.DEBUG} Iniciando debug...\n")
+        self.append_to_console(f"{TextIcons.DEBUG} Iniciando debug...\n")
         # Aqui você pode implementar funcionalidades de debug mais avançadas
-        self.append_to_console(f"{ModernIcons.INFO} Debug iniciado. Use breakpoints para controlar a execução.\n")
+        self.append_to_console(f"{TextIcons.INFO} Debug iniciado. Use breakpoints para controlar a execução.\n")
     
     def toggle_terminal(self):
         """Mostra/oculta o terminal integrado"""
         if self.output_console.isVisible():
             self.output_console.hide()
-            self.file_info_label.setText(f"{ModernIcons.TERMINAL} Terminal oculto")
+            self.file_info_label.setText(f"{TextIcons.TERMINAL} Terminal oculto")
         else:
             self.output_console.show()
-            self.file_info_label.setText(f"{ModernIcons.TERMINAL} Terminal visível")
+            self.file_info_label.setText(f"{TextIcons.TERMINAL} Terminal visível")
     
     def show_settings(self):
         """Mostra a janela de configurações"""
         from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QComboBox, QSpinBox, QCheckBox, QTabWidget, QWidget
         
         dialog = QDialog(self)
-        dialog.setWindowTitle(f"{ModernIcons.SETTINGS} Configurações - PyPy IDE")
+        dialog.setWindowTitle(f"{TextIcons.SETTINGS} Configurações - PyPy IDE")
         dialog.setGeometry(400, 300, 600, 400)
         
         layout = QVBoxLayout()
@@ -741,8 +752,8 @@ class IDEMainWindow(QMainWindow):
         
         # Botões
         button_layout = QHBoxLayout()
-        ok_button = QPushButton(f"{ModernIcons.SUCCESS} Aplicar")
-        cancel_button = QPushButton(f"{ModernIcons.ERROR} Cancelar")
+        ok_button = QPushButton(f"{TextIcons.SUCCESS} Aplicar")
+        cancel_button = QPushButton(f"{TextIcons.ERROR} Cancelar")
         
         ok_button.clicked.connect(dialog.accept)
         cancel_button.clicked.connect(dialog.reject)
@@ -781,7 +792,7 @@ class IDEMainWindow(QMainWindow):
         from PyQt5.QtCore import Qt
         
         dialog = QDialog(self)
-        dialog.setWindowTitle(f"{ModernIcons.INFO} Sobre PyPy IDE")
+        dialog.setWindowTitle(f"{TextIcons.INFO} Sobre PyPy IDE")
         dialog.setGeometry(300, 200, 500, 300)
         dialog.setModal(True)
         
@@ -816,7 +827,7 @@ class IDEMainWindow(QMainWindow):
         layout.addWidget(desc_label)
         
         # Botão OK
-        ok_button = QPushButton(f"{ModernIcons.SUCCESS} OK")
+        ok_button = QPushButton(f"{TextIcons.SUCCESS} OK")
         ok_button.clicked.connect(dialog.accept)
         layout.addWidget(ok_button)
         
@@ -829,14 +840,14 @@ class IDEMainWindow(QMainWindow):
         from PyQt5.QtCore import Qt
         
         dialog = QDialog(self)
-        dialog.setWindowTitle(f"{ModernIcons.COMMAND_HELP} Ajuda - PyPy IDE")
+        dialog.setWindowTitle(f"{TextIcons.COMMAND_HELP} Ajuda - PyPy IDE")
         dialog.setGeometry(400, 300, 700, 500)
         dialog.setModal(True)
         
         layout = QVBoxLayout()
         
         # Título
-        title_label = QLabel(f"{ModernIcons.COMMAND_HELP} Ajuda do PyPy IDE")
+        title_label = QLabel(f"{TextIcons.COMMAND_HELP} Ajuda do PyPy IDE")
         title_label.setStyleSheet("font-size: 18px; font-weight: bold; color: #50fa7b;")
         title_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(title_label)
@@ -919,7 +930,7 @@ Para mais informações, consulte a documentação ou digite 'help' no terminal.
         layout.addWidget(help_text)
         
         # Botão OK
-        ok_button = QPushButton(f"{ModernIcons.SUCCESS} OK")
+        ok_button = QPushButton(f"{TextIcons.SUCCESS} OK")
         ok_button.clicked.connect(dialog.accept)
         layout.addWidget(ok_button)
         

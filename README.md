@@ -1,117 +1,51 @@
-# 🐍 PyPy IDE - IDE Python Moderna
+# 🐍 PyPy IDE v2.0 - IDE Python Moderna
 
-Uma IDE Python moderna e elegante desenvolvida com PyQt5, oferecendo uma experiência de desenvolvimento completa e intuitiva.
+Uma IDE Python moderna e elegante com interface intuitiva, ícones SVG profissionais e funcionalidades avançadas.
 
 ## ✨ Características Principais
 
 ### 🎨 Interface Moderna
-- **Ícones Unicode Modernos**: Interface limpa e intuitiva com ícones Unicode
-- **Sistema de Temas**: Múltiplos temas disponíveis (Dracula, VS Code Dark, Light, etc.)
-- **Interface Responsiva**: Layout adaptável com splitters e toolbars
+- **Ícones SVG Profissionais**: Sistema de ícones vetoriais modernos e escaláveis
+- **Temas Personalizáveis**: Múltiplos temas incluindo Dracula, VS Code Dark, Light e mais
+- **Interface Intuitiva**: Design limpo e organizado com toolbar e menus contextuais
+- **Responsividade**: Interface adaptável com splitters e layouts flexíveis
 
-### 📝 Editor Avançado
-- **Syntax Highlighting**: Destaque de sintaxe para Python
-- **Autocompletar Inteligente**: Sugestões baseadas em pacotes instalados
-- **Snippets de Código**: Templates pré-definidos para acelerar o desenvolvimento
-- **Múltiplas Abas**: Suporte a múltiplos arquivos simultaneamente
-- **Números de Linha**: Visualização da posição do cursor
+### 💻 Editor Avançado
+- **Syntax Highlighting**: Destaque de sintaxe para Python com cores personalizáveis
+- **Autocompletar Inteligente**: Sugestões automáticas para Python keywords, built-ins e pacotes
+- **Múltiplas Abas**: Suporte a múltiplos arquivos simultâneos
+- **Números de Linha**: Opcional com configuração personalizável
+- **Undo/Redo**: Histórico completo de ações
 
-### 💻 Terminal Integrado
-- **Comandos Avançados**: Sistema completo de comandos internos
-- **Navegação por Histórico**: Use ↑↓ para navegar no histórico de comandos
-- **Comandos do Sistema**: Execução de comandos Python, pip, git, etc.
-- **Comandos da IDE**: Controle da IDE via terminal
+### 🖥️ Terminal Integrado
+- **Comandos Internos**: Sistema robusto de comandos integrados
+- **Histórico de Comandos**: Navegação com setas ↑↓
+- **Comandos do Sistema**: Execução de comandos do sistema operacional
+- **Comandos IDE**: Controle da IDE via terminal
+- **Navegação de Arquivos**: cd, ls, pwd, mkdir, rmdir, etc.
 
 ### 📁 Gerenciamento de Arquivos
-- **Explorador de Arquivos**: Navegação visual de diretórios
-- **Abertura Inteligente**: Detecta arquivos já abertos
-- **Salvamento Automático**: Opção de salvamento automático
-- **Múltiplos Formatos**: Suporte a diferentes tipos de arquivo
+- **Explorador Integrado**: Navegação visual de arquivos e pastas
+- **Operações de Arquivo**: Copiar, mover, deletar, visualizar conteúdo
+- **Suporte a Múltiplos Formatos**: Python, texto, imagens, áudio, vídeo
+- **Ícones por Tipo**: Identificação visual por tipo de arquivo
 
-### 🔧 Ferramentas Integradas
-- **Gerenciador de Pacotes**: Instalação e gerenciamento de pacotes Python
-- **Debug Básico**: Funcionalidades de debug integradas
-- **Configurações**: Interface de configuração personalizável
-- **Sistema de Ajuda**: Documentação integrada
+### 🔧 Ferramentas de Desenvolvimento
+- **Debug Básico**: Sistema de debug integrado
+- **Gerenciador de Pacotes**: Interface para pip e instalação de pacotes
+- **Snippets de Código**: Templates reutilizáveis para desenvolvimento
+- **Configurações Avançadas**: Painel de configurações personalizável
 
-## 🚀 Comandos do Terminal
-
-### 📁 Navegação
-```bash
-cd <diretório>     # Muda diretório
-pwd                # Mostra diretório atual
-ls, dir            # Lista arquivos
-```
-
-### 📄 Arquivos
-```bash
-new                # Novo arquivo
-open <arquivo>     # Abre arquivo
-save               # Salva arquivo atual
-del <arquivo>      # Deleta arquivo
-copy <orig> <dest> # Copia arquivo
-move <orig> <dest> # Move arquivo
-```
-
-### 🔧 Sistema
-```bash
-cls, clear         # Limpa console
-python <script>    # Executa script Python
-pip <comando>      # Executa pip
-git <comando>      # Executa git
-```
-
-### 🎨 IDE
-```bash
-theme              # Muda tema
-snippets           # Gerencia snippets
-packages           # Gerencia pacotes
-explorer           # Mostra/oculta explorador
-run                # Executa arquivo atual
-status             # Status da IDE
-help               # Mostra ajuda
-```
-
-## ⌨️ Atalhos de Teclado
-
-### 📄 Arquivo
-- `Ctrl+N` - Novo arquivo
-- `Ctrl+O` - Abrir arquivo
-- `Ctrl+S` - Salvar
-- `Ctrl+T` - Nova aba
-- `Ctrl+Q` - Sair
-
-### ✏️ Editar
-- `Ctrl+Z` - Desfazer
-- `Ctrl+Y` - Refazer
-- `Ctrl+C` - Copiar
-- `Ctrl+V` - Colar
-- `Ctrl+X` - Recortar
-
-### 🚀 Execução
-- `F5` - Executar código
-- `F6` - Debug
-- `Ctrl+`` - Terminal integrado
-
-### 🗂️ Navegação
-- `Ctrl+E` - Mostrar/ocultar explorador
-- `Ctrl+F` - Buscar
-- `Ctrl+H` - Substituir
-
-### 🎨 Interface
-- `F1` - Ajuda
-- `Ctrl+,` - Configurações
-
-## 🛠️ Instalação
+## 🚀 Instalação
 
 ### Pré-requisitos
-- Python 3.7+
+- Python 3.8+
 - PyQt5
 
-### Instalação
+### Instalação Rápida
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/pypy-ide.git
+git clone https://github.com/caiquepessan/pypy-ide.git
 cd pypy-ide
 
 # Instale as dependências
@@ -121,67 +55,174 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## 📦 Dependências
+## 🎯 Funcionalidades Detalhadas
 
+### Ícones SVG Modernos
+O PyPy IDE v2.0 utiliza um sistema completo de ícones SVG vetoriais:
+
+- **Ícones de Arquivo**: Novo, abrir, salvar, fechar
+- **Ícones de Execução**: Play, debug, stop
+- **Ícones de Interface**: Terminal, configurações, explorador
+- **Ícones de Ferramentas**: Pacotes, temas, snippets
+- **Ícones de Status**: Sucesso, erro, informação, aviso
+
+### Terminal Integrado Avançado
+Comandos disponíveis:
+
+#### 📁 Navegação
+```bash
+cd <diretório>     # Mudar diretório
+pwd                # Mostrar diretório atual
+ls, dir            # Listar arquivos
 ```
-PyQt5>=5.15.0
+
+#### 📄 Operações de Arquivo
+```bash
+new                # Novo arquivo
+open <arquivo>     # Abrir arquivo
+save               # Salvar arquivo atual
+del <arquivo>      # Deletar arquivo
+copy <orig> <dest> # Copiar arquivo
+move <orig> <dest> # Mover arquivo
+type <arquivo>     # Mostrar conteúdo
 ```
+
+#### 🔧 Sistema
+```bash
+cls, clear         # Limpar console
+python <script>    # Executar script Python
+pip <comando>      # Executar pip
+git <comando>      # Executar git
+```
+
+#### 🎨 Controle da IDE
+```bash
+theme              # Mudar tema
+snippets           # Gerenciar snippets
+packages           # Gerenciar pacotes
+explorer           # Mostrar/ocultar explorador
+run                # Executar arquivo atual
+status             # Status da IDE
+info               # Informações do sistema
+help               # Mostrar ajuda
+```
+
+### Atalhos de Teclado
+- **F5**: Executar código
+- **F6**: Debug
+- **Ctrl+`**: Terminal integrado
+- **Ctrl+E**: Mostrar/ocultar explorador
+- **Ctrl+T**: Nova aba
+- **Ctrl+O**: Abrir arquivo
+- **Ctrl+S**: Salvar
+- **F1**: Ajuda
 
 ## 🎨 Temas Disponíveis
 
 - **Dracula**: Tema escuro elegante
-- **VS Code Dark**: Tema escuro inspirado no VS Code
+- **VS Code Dark**: Inspirado no Visual Studio Code
 - **Light**: Tema claro
 - **Monokai**: Tema colorido
 - **Solarized**: Tema suave
 
+## 📦 Estrutura do Projeto
+
+```
+pypy-ide/
+├── main.py                 # Ponto de entrada
+├── requirements.txt        # Dependências
+├── README.md              # Documentação
+├── icons/                 # Ícones SVG
+│   ├── new_file.svg
+│   ├── open_file.svg
+│   ├── save_file.svg
+│   ├── run_code.svg
+│   ├── debug.svg
+│   ├── terminal.svg
+│   ├── settings.svg
+│   ├── explorer.svg
+│   ├── themes.svg
+│   ├── packages.svg
+│   ├── close.svg
+│   ├── help.svg
+│   ├── info.svg
+│   ├── success.svg
+│   └── error.svg
+└── src/                   # Código fonte
+    ├── main_window.py     # Janela principal
+    ├── icons.py          # Sistema de ícones
+    ├── terminal_commands.py # Comandos do terminal
+    ├── code_editor.py    # Editor de código
+    ├── syntax_highlighter.py # Syntax highlighting
+    ├── tab_manager.py    # Gerenciador de abas
+    ├── theme_manager.py  # Gerenciador de temas
+    ├── file_explorer.py  # Explorador de arquivos
+    ├── autocomplete.py   # Autocompletar
+    ├── package_manager.py # Gerenciador de pacotes
+    ├── constants.py      # Constantes
+    └── ...
+```
+
 ## 🔧 Configuração
 
-A IDE oferece uma interface de configuração completa onde você pode:
+### Configurações do Editor
+- Tamanho da fonte: 8-24pt
+- Largura da tabulação: 2-8 espaços
+- Salvar automaticamente
+- Mostrar números de linha
+- Word wrap
 
-- Ajustar tamanho da fonte
-- Configurar largura da tabulação
-- Definir tema padrão
-- Configurar histórico de comandos
-- Personalizar comportamento do terminal
-
-## 💡 Dicas de Uso
-
-1. **Terminal Integrado**: Use `Ctrl+`` para abrir o terminal
-2. **Histórico de Comandos**: Use ↑↓ no terminal para navegar
-3. **Autocompletar**: Digite e pressione `Ctrl+Space` para sugestões
-4. **Snippets**: Use o menu Editar > Snippets para templates
-5. **Temas**: Experimente diferentes temas em Visual > Temas
-6. **Explorador**: Use `Ctrl+E` para mostrar/ocultar o explorador
+### Configurações do Terminal
+- Histórico de comandos: 50 comandos
+- Comandos personalizados
+- Autocompletar
+- Syntax highlighting
 
 ## 🐛 Debug
 
-Para reportar bugs ou sugerir melhorias:
+O sistema de debug básico inclui:
+- Breakpoints visuais
+- Execução passo a passo
+- Informações de debug no console
+- Controle de execução
 
-1. Abra uma issue no GitHub
-2. Inclua informações sobre seu sistema
-3. Descreva o problema detalhadamente
+## 📝 Snippets
+
+Snippets pré-definidos incluídos:
+- Classes Python
+- Funções
+- Estruturas de controle
+- Decorators
+- Context managers
+- Async functions
 
 ## 🤝 Contribuição
 
 Contribuições são bem-vindas! Para contribuir:
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 🙏 Agradecimentos
 
-- PyQt5 pela excelente framework GUI
-- Comunidade Python pela inspiração
-- Contribuidores que ajudaram a melhorar a IDE
+- **PyQt5**: Framework GUI
+- **Pygments**: Syntax highlighting
+- **Feather Icons**: Ícones SVG base
+- **Comunidade Python**: Suporte e feedback
+
+## 📞 Suporte
+
+- **Issues**: Reporte bugs e sugestões no GitHub
+- **Documentação**: Consulte este README
+- **Terminal**: Digite `help` no terminal integrado
 
 ---
 
-**Desenvolvido com ❤️ em Python** 
+**PyPy IDE v2.0** - Transformando o desenvolvimento Python com interface moderna e funcionalidades avançadas! 🚀 

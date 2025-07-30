@@ -2,6 +2,8 @@
 
 Uma IDE Python moderna e elegante com interface intuitiva, ícones SVG profissionais e funcionalidades avançadas.
 
+![PyPy IDE v2.0 Screenshot](screenshot.png)
+
 ## ✨ Características Principais
 
 ### 🎨 Interface Moderna
